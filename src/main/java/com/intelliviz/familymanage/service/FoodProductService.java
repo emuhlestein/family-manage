@@ -4,6 +4,6 @@ import com.intelliviz.familymanage.model.FoodProduct;
 
 import java.util.List;
 
-public interface FoodStorageService {
-    List<FoodProduct> listAllFoodItems();
+public interface FoodProductService {
+    List<FoodProduct> listAllFoodProducts();
 }
