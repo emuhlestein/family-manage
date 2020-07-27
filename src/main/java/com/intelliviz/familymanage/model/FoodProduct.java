@@ -11,25 +11,35 @@ public class FoodProduct {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
-    private String type;
+
+    @Column(name = "weight", nullable = false)
     private float weight;
 
-    @Column(name="num_cans")
+    @Column(name="num_cans", nullable = false)
     private int numCans;
 
-    @Column(name="num_boxes")
-    private int numBoxes;
+    @ManyToOne
+    @JoinColumn(name="food_product_type", nullable = false)
+    private FoodProductType foodProductType;
 
     protected FoodProduct() {
     }
 
-    public FoodProduct(String name, String type, float weight, int numCans, int numBoxes) {
+    public FoodProduct(String name, FoodProductType foodProductType, float weight, int numCans, int numBoxes) {
         this.name = name;
-        this.type = type;
         this.weight = weight;
         this.numCans = numCans;
-        this.numBoxes = numBoxes;
+        this.foodProductType = foodProductType;
+    }
+
+    public FoodProductType getFoodProductType() {
+        return foodProductType;
+    }
+
+    public void setFoodProductType(FoodProductType foodProductType) {
+        this.foodProductType = foodProductType;
     }
 
     public Long getId() {
@@ -42,14 +52,6 @@ public class FoodProduct {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public float getWeight() {
@@ -68,23 +70,14 @@ public class FoodProduct {
         this.numCans = numCans;
     }
 
-    public int getNumBoxes() {
-        return numBoxes;
-    }
-
-    public void setNumBoxes(int numBoxes) {
-        this.numBoxes = numBoxes;
-    }
-
     @Override
     public String toString() {
         return "FoodProduct{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
                 ", weight=" + weight +
+                ", type=" + foodProductType.getName() +
                 ", numCans=" + numCans +
-                ", numBoxes=" + numBoxes +
                 '}';
     }
 }
