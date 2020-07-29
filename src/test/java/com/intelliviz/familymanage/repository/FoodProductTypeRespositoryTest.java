@@ -12,8 +12,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)

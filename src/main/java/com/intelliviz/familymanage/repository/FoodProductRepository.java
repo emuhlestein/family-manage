@@ -15,11 +15,6 @@ public class FoodProductRepository {
     @Autowired
     EntityManager em;
 
-    public List<FoodProduct> getAllFoodProducts() {
-        Query query = em.createNativeQuery("SELECT * from food_product");
-        return (List<FoodProduct>) query.getResultList();
-    }
-
     public FoodProduct findById(Long id) {
         return em.find(FoodProduct.class, id);
     }

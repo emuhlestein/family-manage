@@ -15,6 +15,6 @@ public class FoodProductController {
 
     @RequestMapping("/foodproduct")
     public List<FoodProduct> listFoodProducts() {
-        return foodProductService.listAllFoodItems();
+        return foodProductService.listAllFoodProducts();
     }
 }

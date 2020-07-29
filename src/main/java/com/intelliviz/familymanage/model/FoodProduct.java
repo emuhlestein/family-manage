@@ -20,26 +20,25 @@ public class FoodProduct {
     @Column(name="num_cans", nullable = false)
     private int numCans;
 
-    @ManyToOne
-    @JoinColumn(name="food_product_type", nullable = false)
-    private FoodProductType foodProductType;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="food_product_type_id", nullable = false)
+    private FoodProductType type;
 
     protected FoodProduct() {
     }
 
-    public FoodProduct(String name, FoodProductType foodProductType, float weight, int numCans, int numBoxes) {
+    public FoodProduct(String name, float weight, int numCans) {
         this.name = name;
         this.weight = weight;
         this.numCans = numCans;
-        this.foodProductType = foodProductType;
     }
 
     public FoodProductType getFoodProductType() {
-        return foodProductType;
+        return type;
     }
 
     public void setFoodProductType(FoodProductType foodProductType) {
-        this.foodProductType = foodProductType;
+        this.type = foodProductType;
     }
 
     public Long getId() {
@@ -76,7 +75,7 @@ public class FoodProduct {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", weight=" + weight +
-                ", type=" + foodProductType.getName() +
+                ", type=" + type.getName() +
                 ", numCans=" + numCans +
                 '}';
     }

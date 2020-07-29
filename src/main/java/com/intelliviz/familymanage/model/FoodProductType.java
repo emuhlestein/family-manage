@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="food_product_type")
+@Table(name = FoodProductType.TABLE_NAME)
 public class FoodProductType {
+    public static final String TABLE_NAME= "food_product_type";
+
     @Id
     @GeneratedValue
     private Long id;
@@ -14,7 +16,7 @@ public class FoodProductType {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "foodProductType")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "type")
     private List<FoodProduct> foodProducts = new ArrayList<>();
 
     protected FoodProductType() {
@@ -22,6 +24,10 @@ public class FoodProductType {
     }
 
     public FoodProductType(String name) {
+        this.name = name;
+    }
+    public FoodProductType(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
