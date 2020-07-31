@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class FoodProductTypeRespositoryJPQLTest {
+public class FoodProductTypeRepositoryJPQLTest {
 
 	private static final String TEST_TYPE = "TEST_TYPE";
 

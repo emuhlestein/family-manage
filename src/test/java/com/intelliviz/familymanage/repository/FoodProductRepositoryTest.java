@@ -19,7 +19,7 @@ import static org.mockito.Mockito.mock;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class FoodProductRespositoryTest {
+public class FoodProductRepositoryTest {
 
 	private static final String TEST_FOOD_PRODUCT_TYPE1 = "TEST_TYPE1";
 	private static final String TEST_FOOD_PRODUCT1 = "TEST_FOOD_PRODUCT1";

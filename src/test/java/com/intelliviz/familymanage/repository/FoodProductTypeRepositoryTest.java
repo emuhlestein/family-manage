@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class FoodProductTypeRespositoryTest {
+public class FoodProductTypeRepositoryTest {
 
 	private static final String TEST_TYPE = "TEST_TYPE";
 	@Autowired
