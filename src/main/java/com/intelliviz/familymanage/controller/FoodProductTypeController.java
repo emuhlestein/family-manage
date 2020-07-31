@@ -8,17 +8,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/foodproducttype")
 public class FoodProductTypeController {
     @Autowired
     private FoodProductTypeService foodProductTypeService;
 
 
-    @GetMapping("/foodproducttype")
+    @GetMapping("/")
     public List<FoodProductType> listFoodProducts() {
         return foodProductTypeService.listAll();
     }
 
-    @PostMapping("/foodproducttype")
+    @GetMapping("/{id}")
+    public FoodProductType findById(@RequestParam String name) {
+        return foodProductTypeService.findByName(name);
+    }
+
+    @PostMapping("/")
     public FoodProductType save(@RequestBody FoodProductType insertFoodProductType) {
         System.out.println("name: " + insertFoodProductType.getName());
         if(insertFoodProductType.getName() == null || insertFoodProductType.getName().equals("")) {

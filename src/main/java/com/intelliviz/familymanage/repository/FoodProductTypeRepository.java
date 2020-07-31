@@ -41,4 +41,9 @@ public class FoodProductTypeRepository {
         }
         return foodProductType;
     }
+
+    public void deleteById(Long id) {
+        FoodProductType fpt = findById(id);
+        em.remove(fpt);
+    }
 }
