@@ -9,4 +9,5 @@ public interface FoodProductTypeService {
     List<FoodProductType> listAll();
     FoodProductType save(FoodProductType foodProductType);
     FoodProductType findByName(String name);
+    FoodProductType findById(Long id);
 }

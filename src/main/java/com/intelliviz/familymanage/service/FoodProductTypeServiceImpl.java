@@ -27,4 +27,9 @@ public class FoodProductTypeServiceImpl implements FoodProductTypeService {
     public FoodProductType findByName(String name) {
         return repo.findByName(name);
     }
+
+    @Override
+    public FoodProductType findById(Long id) {
+        return repo.findById(id);
+    }
 }
