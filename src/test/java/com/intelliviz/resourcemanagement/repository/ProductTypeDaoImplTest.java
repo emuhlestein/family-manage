@@ -1,37 +1,25 @@
-package com.intelliviz.familymanage.repository;
+package com.intelliviz.resourcemanagement.repository;
 
-import com.intelliviz.familymanage.model.FoodProduct;
-import com.intelliviz.familymanage.model.FoodProductType;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityManager;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class FoodProductRepositoryTest {
+public class ProductTypeDaoImplTest {
 
 	private static final String TEST_FOOD_PRODUCT_TYPE1 = "TEST_TYPE1";
 	private static final String TEST_FOOD_PRODUCT1 = "TEST_FOOD_PRODUCT1";
 
 	@Autowired
-	FoodProductRepository repo;
+	ProductTypeDaoImpl repo;
 
 	@Autowired
-	FoodProductTypeRepository typeRepo;
+	ProductDao typeRepo;
 
-	@Autowired
-	EntityManager em;
 
 //	@Test
 //	@DirtiesContext
@@ -52,8 +40,8 @@ public class FoodProductRepositoryTest {
 	@Test
 	@DirtiesContext
 	public void testAddProduct() {
-		FoodProductType fpt = new FoodProductType(TEST_FOOD_PRODUCT_TYPE1);
-		fpt = typeRepo.save(fpt);
+//		ProductType fpt = new ProductType(TEST_FOOD_PRODUCT_TYPE1);
+//		fpt = typeRepo.save(fpt);
 
 //		mock(SomeDataService.class);
 

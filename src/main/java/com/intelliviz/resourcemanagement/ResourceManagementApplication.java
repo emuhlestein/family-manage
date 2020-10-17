@@ -1,13 +1,13 @@
-package com.intelliviz.familymanage;
+package com.intelliviz.resourcemanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FamilyManageApplication {
+public class ResourceManagementApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FamilyManageApplication.class, args);
+		SpringApplication.run(ResourceManagementApplication.class, args);
 	}
 
 }

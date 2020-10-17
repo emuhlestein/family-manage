@@ -1,7 +1,7 @@
-package com.intelliviz.familymanage.controller;
+package com.intelliviz.resourcemanagement.controller;
 
-import com.intelliviz.familymanage.model.FoodProductType;
-import com.intelliviz.familymanage.service.FoodProductTypeServiceImpl;
+import com.intelliviz.resourcemanagement.model.ProductType;
+import com.intelliviz.resourcemanagement.service.ProductTypeServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -23,25 +23,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(FoodProductTypeController.class)
-public class FoodProductTypeControllerTest {
+@WebMvcTest(ProductTypeController.class)
+public class ProductTypeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private FoodProductTypeServiceImpl foodProductTypeService;
+    private ProductTypeServiceImpl foodProductTypeService;
 
     @Test
     public void listAllFoodProductsTest() throws Exception {
         String expectedResponse = "[{id:1, name:Grain}, {id:2, name:Beans}, {id:3, name:Sugar}]";
 
         when(foodProductTypeService.listAll()).thenReturn(
-                new ArrayList<FoodProductType>(
+                new ArrayList<ProductType>(
                         Arrays.asList(
-                                new FoodProductType(1L, "Grain"),
-                                new FoodProductType(2L,"Beans"),
-                                new FoodProductType(3L,"Sugar")
+                                new ProductType(1L, "Grain", ""),
+                                new ProductType(2L,"Beans", ""),
+                                new ProductType(3L,"Sugar", "")
                                 )));
         RequestBuilder request = MockMvcRequestBuilders
                 .get("/foodproducttype")
