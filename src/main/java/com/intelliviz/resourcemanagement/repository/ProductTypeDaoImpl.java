@@ -2,6 +2,7 @@ package com.intelliviz.resourcemanagement.repository;
 
 import com.intelliviz.resourcemanagement.model.ProductType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,13 +22,7 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
     }
 
     public List<ProductType> getAll() {
-        return jdbcTemplate.query("select * from product_type", (rs, rowNum) -> {
-            ProductType productType = new ProductType();
-            productType.setId(rs.getLong("id"));
-            productType.setName(rs.getString("name"));
-            productType.setDescription(rs.getString("description"));
-            return productType;
-        });
+        return jdbcTemplate.query("select * from product_type", new ProductTypeRowMapper());
     }
 
     @Override
@@ -35,13 +30,11 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
         String sql = "SELECT * FROM product_type WHERE name = :name";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("name", name);
-        return jdbcTemplate.query(sql, params, (rs) -> {
-            ProductType productType = new ProductType();
-            productType.setId(rs.getLong("id"));
-            productType.setName(rs.getString("name"));
-            productType.setDescription(rs.getString("description"));
-            return productType;
-        });
+        try {
+            return jdbcTemplate.queryForObject(sql, params, new ProductTypeRowMapper());
+        } catch(IncorrectResultSizeDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -49,22 +42,19 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
         String sql = "SELECT * FROM product_type WHERE id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
-        return jdbcTemplate.query(sql, params, (rs) -> {
-            ProductType productType = new ProductType();
-            productType.setId(rs.getLong("id"));
-            productType.setName(rs.getString("name"));
-            productType.setDescription(rs.getString("description"));
-            return productType;
-        });
+        try {
+            return jdbcTemplate.queryForObject(sql, params, new ProductTypeRowMapper());
+        } catch(IncorrectResultSizeDataAccessException e) {
+            return null;
+        }
     }
 
-    public ProductType insert(ProductType productType) {
+    public int insert(ProductType productType) {
         String sql = "insert into product_type(name, description) values(:name, :description)";
         Map<String, String> params = new HashMap<>();
         params.put("name", productType.getName());
         params.put("description", productType.getDescription());
-        jdbcTemplate.update(sql, params);
-        return productType;
+        return jdbcTemplate.update(sql, params);
     }
 
     public void deleteById(long id) {

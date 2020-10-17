@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductTypeService {
     List<ProductType> listAll();
-    ProductType save(ProductType productType);
+    int save(ProductType productType);
     ProductType findByName(String name);
     ProductType findById(Long id);
 }
