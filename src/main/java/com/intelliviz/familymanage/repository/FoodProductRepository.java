@@ -1,6 +1,7 @@
 package com.intelliviz.familymanage.repository;
 
 import com.intelliviz.familymanage.model.FoodProduct;
+import com.intelliviz.familymanage.model.FoodProductType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -39,5 +40,10 @@ public class FoodProductRepository {
             em.merge(foodProduct);
         }
         return foodProduct;
+    }
+
+    public void deleteById(Long id) {
+        FoodProduct fp = findById(id);
+        em.remove(fp);
     }
 }
