@@ -24,15 +24,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ProductTypeControllerTest {
 
     @Autowired
-    private final MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @MockBean
-    private final ProductTypeServiceImpl productTypeService;
-
-    public ProductTypeControllerTest(MockMvc mockMvc, ProductTypeServiceImpl productTypeService) {
-        this.mockMvc = mockMvc;
-        this.productTypeService = productTypeService;
-    }
+    private ProductTypeServiceImpl productTypeService;
 
     @Test
     public void listAllProductTypesTest() throws Exception {
