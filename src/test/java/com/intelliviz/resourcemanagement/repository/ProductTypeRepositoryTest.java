@@ -1,10 +1,9 @@
 package com.intelliviz.resourcemanagement.repository;
 
 import com.intelliviz.resourcemanagement.model.ProductType;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,9 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductTypeRepositoryTest {
 
@@ -26,14 +24,14 @@ public class ProductTypeRepositoryTest {
 	@Autowired
 	ProductTypeDao repo;
 
-	@Before
+	@BeforeEach
 	public void setup() {
 		deleteItem(TEST_FOOD_PRODUCT_TYPE1);
 		deleteItem(TEST_FOOD_PRODUCT_TYPE2);
 		repo.insert(new ProductType(TEST_FOOD_PRODUCT_TYPE1, ""));
 	}
 
-	@After
+	@AfterEach
 	public void cleanup() {
 		deleteItem(TEST_FOOD_PRODUCT_TYPE1);
 		deleteItem(TEST_FOOD_PRODUCT_TYPE2);
