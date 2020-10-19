@@ -18,7 +18,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public int save(ProductType insertProductType) {
+    public ProductType save(ProductType insertProductType) {
         System.out.println(insertProductType.getName());
         return repo.insert(insertProductType);
     }

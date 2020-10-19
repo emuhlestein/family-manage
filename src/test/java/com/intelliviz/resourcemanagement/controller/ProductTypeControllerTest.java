@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -30,21 +31,21 @@ public class ProductTypeControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private ProductTypeServiceImpl foodProductTypeService;
+    private ProductTypeServiceImpl productTypeService;
 
     @Test
-    public void listAllFoodProductsTest() throws Exception {
-        String expectedResponse = "[{id:1, name:Grain}, {id:2, name:Beans}, {id:3, name:Sugar}]";
+    public void listAllProductTypesTest() throws Exception {
+        String expectedResponse = "[{id:1, name:Grain, description:test}, {id:2, name:Beans, description:test}, {id:3, name:Sugar, description:test}]";
 
-        when(foodProductTypeService.listAll()).thenReturn(
+        when(productTypeService.listAll()).thenReturn(
                 new ArrayList<ProductType>(
                         Arrays.asList(
-                                new ProductType(1L, "Grain", ""),
-                                new ProductType(2L,"Beans", ""),
-                                new ProductType(3L,"Sugar", "")
+                                new ProductType(1L, "Grain", "test"),
+                                new ProductType(2L,"Beans", "test"),
+                                new ProductType(3L,"Sugar", "test")
                                 )));
         RequestBuilder request = MockMvcRequestBuilders
-                .get("/foodproducttype")
+                .get("/producttype")
                 .accept(MediaType.APPLICATION_JSON);
         MvcResult result = mockMvc.perform(request)
                 .andExpect(status().isOk()) // test for 200
@@ -53,6 +54,48 @@ public class ProductTypeControllerTest {
 
         // This code is not needed
         String actualResponse = result.getResponse().getContentAsString();
-        JSONAssert.assertEquals(expectedResponse, actualResponse,false);
+        JSONAssert.assertEquals(expectedResponse, actualResponse, true);
+    }
+
+
+    @Test
+    public void getProductTypeByIdTest() throws Exception {
+        String expectedResponse = "{id:1, name:Grain, description:test}";
+
+        when(productTypeService.findById(1l)).thenReturn(
+               new ProductType(1L, "Grain", "test"));
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/producttype/{id}", 1)
+                .accept(MediaType.APPLICATION_JSON);
+        MvcResult result = mockMvc.perform(request)
+                .andExpect(status().isOk()) // test for 200
+                .andExpect(content().json(expectedResponse))
+                .andReturn();
+
+        // This code is not needed
+        String actualResponse = result.getResponse().getContentAsString();
+        JSONAssert.assertEquals(expectedResponse, actualResponse, true);
+    }
+
+    @Test
+    public void doBadUrl404Test() throws Exception {
+        when(productTypeService.findById(1l)).thenReturn(null);
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/badproducttype/{id}", 1)
+                .accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(request)
+                .andExpect(status().isNotFound()) // test for 404
+                .andReturn();
+    }
+
+    @Test
+    public void doBadId404Test() throws Exception {
+        when(productTypeService.findById(1l)).thenReturn(null);
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/badproducttype/{id}", 10)
+                .accept(MediaType.APPLICATION_JSON);
+        mockMvc.perform(request)
+                .andExpect(status().isNotFound()) // test for 404
+                .andReturn();
     }
 }

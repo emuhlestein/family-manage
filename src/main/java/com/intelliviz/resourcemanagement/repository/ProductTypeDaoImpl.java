@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -49,12 +52,15 @@ public class ProductTypeDaoImpl implements ProductTypeDao {
         }
     }
 
-    public int insert(ProductType productType) {
+    public ProductType insert(ProductType productType) {
         String sql = "insert into product_type(name, description) values(:name, :description)";
-        Map<String, String> params = new HashMap<>();
-        params.put("name", productType.getName());
-        params.put("description", productType.getDescription());
-        return jdbcTemplate.update(sql, params);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("name", productType.getName())
+                .addValue("description", productType.getDescription());
+        int numRows =  jdbcTemplate.update(sql, params, keyHolder);
+        productType.setId(keyHolder.getKey().intValue());
+        return productType;
     }
 
     public void deleteById(long id) {

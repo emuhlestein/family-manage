@@ -9,6 +9,6 @@ public interface ProductTypeDao {
     List<ProductType> getAll();
     ProductType findByName(String name);
     ProductType findById(long id);
-    int insert(ProductType productType);
+    ProductType insert(ProductType productType);
     void deleteById(long id);
 }
