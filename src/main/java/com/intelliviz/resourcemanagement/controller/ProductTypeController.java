@@ -14,9 +14,8 @@ public class ProductTypeController {
     @Autowired
     private ProductTypeService service;
 
-
     @GetMapping("")
-    public List<ProductType> listFoodProducts() {
+    public List<ProductType> listAllProductTypes() {
         return service.listAll();
     }
 
@@ -34,14 +33,18 @@ public class ProductTypeController {
 
         ProductType fpt = service.findByName(insertProductType.getName());
         if (fpt == null) {
-            //TODO return service.save(insertProductType);
+            return service.save(insertProductType);
         } else {
             if (fpt.getName().toUpperCase().equals(insertProductType.getName().toUpperCase())) {
                 throw new IllegalArgumentException("Duplicate name");
             } else {
-                // TODO return service.save(insertProductType);
+                return service.save(insertProductType);
             }
         }
-        return null;
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable int id) {
+        service.deleteById((long)id);
     }
 }

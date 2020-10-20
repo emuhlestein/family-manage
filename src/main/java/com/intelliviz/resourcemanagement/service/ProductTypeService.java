@@ -9,4 +9,5 @@ public interface ProductTypeService {
     ProductType save(ProductType productType);
     ProductType findByName(String name);
     ProductType findById(Long id);
+    void deleteById(Long id);
 }
