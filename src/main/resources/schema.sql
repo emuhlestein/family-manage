@@ -2,7 +2,7 @@
 
 CREATE TABLE IF NOT EXISTS product_type (
     id INTEGER NOT NULL AUTO_INCREMENT,
-    name VARCHAR(64) NOT NULL,
+    name VARCHAR(64) UNIQUE NOT NULL,
     description VARCHAR(256) NOT NULL,
     PRIMARY KEY (id)
 );
