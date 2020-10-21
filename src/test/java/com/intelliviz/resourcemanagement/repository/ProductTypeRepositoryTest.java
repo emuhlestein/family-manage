@@ -10,10 +10,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class ProductTypeRepositoryTest {
@@ -66,18 +68,19 @@ public class ProductTypeRepositoryTest {
 	public void testAddDuplicateProductType() {
 		ProductType fpt = new ProductType(TEST_FOOD_PRODUCT_TYPE1, "");
 		try {
+			final List<ProductType> productTypes = repo.getAll();
 			repo.insert(fpt);
 		} catch(DataIntegrityViolationException e) {
 			System.out.println(e.getLocalizedMessage());
 			System.out.println(e.getCause());
 
-//			// JPA wraps ConstraintViolationException; can't catch it directly
-//			Throwable t = e.getCause();
-//			while((t != null) && !(t instanceof ConstraintViolationException)) {
-//				t = t.getCause();
-//			}
-//
-//			assertTrue(t instanceof ConstraintViolationException);
+			// JDBC wraps ConstraintViolationException; can't catch it directly
+			Throwable t = e.getCause();
+			while((t != null) && !(t instanceof SQLIntegrityConstraintViolationException)) {
+				t = t.getCause();
+			}
+
+			assertTrue(t instanceof SQLIntegrityConstraintViolationException);
 		}
 	}
 
