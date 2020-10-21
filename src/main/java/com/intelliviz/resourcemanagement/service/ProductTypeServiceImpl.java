@@ -9,8 +9,13 @@ import java.util.List;
 
 @Service
 public class ProductTypeServiceImpl implements ProductTypeService {
+
+    private final ProductTypeDao repo;
+
     @Autowired
-    ProductTypeDao repo;
+    public ProductTypeServiceImpl(ProductTypeDao repo) {
+        this.repo = repo;
+    }
 
     @Override
     public List<ProductType> listAll() {
@@ -19,7 +24,6 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     @Override
     public ProductType save(ProductType insertProductType) {
-        System.out.println(insertProductType.getName());
         return repo.insert(insertProductType);
     }
 

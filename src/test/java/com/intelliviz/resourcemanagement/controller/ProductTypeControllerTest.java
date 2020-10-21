@@ -132,7 +132,13 @@ public class ProductTypeControllerTest {
         assertEquals(mockProductType.getId(), productType.getId());
         assertEquals(mockProductType.getName(), productType.getName());
         assertEquals(mockProductType.getDescription(), productType.getDescription());
+    }
 
-        System.out.println(response.getHeader(HttpHeaders.LOCATION));
+    @Test
+    void deleteProductTypeTest() throws Exception {
+        RequestBuilder request = MockMvcRequestBuilders
+                .delete("/producttype/{id}", 1);
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
     }
 }
