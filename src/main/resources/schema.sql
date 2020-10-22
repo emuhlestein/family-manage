@@ -16,10 +16,11 @@ CREATE TABLE IF NOT EXISTS product (
     container INTEGER NOT NULL,
     weight_per_container FLOAT NOT NULL,
     product_type_id INTEGER NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (product_type_id) REFERENCES product_type(id)
 );
 
-CREATE TABLE IF NOT EXISTS container (
+CREATE TABLE IF NOT EXISTS container_type (
     id INTEGER NOT NULL AUTO_INCREMENT,
     name VARCHAR(64) NOT NULL,
     description VARCHAR(256) NOT NULL,
