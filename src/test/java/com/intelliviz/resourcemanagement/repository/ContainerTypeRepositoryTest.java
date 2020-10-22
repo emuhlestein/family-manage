@@ -1,6 +1,6 @@
 package com.intelliviz.resourcemanagement.repository;
 
-import com.intelliviz.resourcemanagement.model.ProductType;
+import com.intelliviz.resourcemanagement.model.ContainerType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,57 +17,57 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-public class ProductTypeRepositoryTest {
+public class ContainerTypeRepositoryTest {
 
-	private static final String TEST_PRODUCT_TYPE1 = "TEST_TYPE1";
-	private static final String TEST_PRODUCT_TYPE2 = "TEST_TYPE2";
+	private static final String TEST_CONTAINER_TYPE1 = "TEST_TYPE1";
+	private static final String TEST_CONTAINER_TYPE2 = "TEST_TYPE2";
 
 	@Autowired
-	ProductTypeDao repo;
+	ContainerTypeDao repo;
 
 	@BeforeEach
 	public void setup() {
-		deleteItem(TEST_PRODUCT_TYPE1);
-		deleteItem(TEST_PRODUCT_TYPE2);
-		repo.insert(new ProductType(TEST_PRODUCT_TYPE1, ""));
+		deleteItem(TEST_CONTAINER_TYPE1);
+		deleteItem(TEST_CONTAINER_TYPE2);
+		repo.insert(new ContainerType(TEST_CONTAINER_TYPE1, ""));
 	}
 
 	@AfterEach
 	public void cleanup() {
-		deleteItem(TEST_PRODUCT_TYPE1);
-		deleteItem(TEST_PRODUCT_TYPE2);
+		deleteItem(TEST_CONTAINER_TYPE1);
+		deleteItem(TEST_CONTAINER_TYPE2);
 	}
 
 	@Test
 	@DirtiesContext
 	public void testGetById() {
-		ProductType fpt1 = repo.findByName(TEST_PRODUCT_TYPE1);
-		ProductType fpt2 = repo.findById(fpt1.getId());
+		ContainerType fpt1 = repo.findByName(TEST_CONTAINER_TYPE1);
+		ContainerType fpt2 = repo.findById(fpt1.getId());
 		assertEquals(fpt1.getId(), fpt2.getId());
 	}
 
 	@Test
 	@DirtiesContext
 	public void testGetByName() {
-		ProductType fpt = repo.findByName(TEST_PRODUCT_TYPE1);
-		assertEquals(TEST_PRODUCT_TYPE1, fpt.getName());
+		ContainerType fpt = repo.findByName(TEST_CONTAINER_TYPE1);
+		assertEquals(TEST_CONTAINER_TYPE1, fpt.getName());
 	}
 
 	@Test
 	@DirtiesContext
-	public void testAddProductType() {
-		ProductType fpt1 = repo.insert(new ProductType(TEST_PRODUCT_TYPE2, ""));
-		ProductType fpt2 = repo.findById(fpt1.getId());
+	public void testAddContainerType() {
+		ContainerType fpt1 = repo.insert(new ContainerType(TEST_CONTAINER_TYPE2, ""));
+		ContainerType fpt2 = repo.findById(fpt1.getId());
 		assertEquals(fpt1.getId(), fpt2.getId());
 		repo.deleteById(fpt1.getId());
 	}
 
 	@Test
 	@DirtiesContext
-	public void testAddDuplicateProductType() {
-		ProductType fpt = new ProductType(TEST_PRODUCT_TYPE1, "");
+	public void testAddDuplicateContainerType() {
+		ContainerType fpt = new ContainerType(TEST_CONTAINER_TYPE1, "");
 		try {
-			final List<ProductType> productTypes = repo.getAll();
+			final List<ContainerType> containerTypes = repo.getAll();
 			repo.insert(fpt);
 		} catch(DataIntegrityViolationException e) {
 			System.out.println(e.getLocalizedMessage());
@@ -84,8 +84,8 @@ public class ProductTypeRepositoryTest {
 	}
 
 	private void deleteItem(String itemToDelete) {
-		List<ProductType> list = repo.getAll();
-		List<ProductType> fptList = list.stream()
+		List<ContainerType> list = repo.getAll();
+		List<ContainerType> fptList = list.stream()
 				.filter(item -> item.getName().equals(itemToDelete))
 				.collect(Collectors.toList());
 		if(fptList.size() > 0) {
