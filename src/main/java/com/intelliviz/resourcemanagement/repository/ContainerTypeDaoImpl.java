@@ -1,6 +1,6 @@
 package com.intelliviz.resourcemanagement.repository;
 
-import com.intelliviz.resourcemanagement.model.ProductType;
+import com.intelliviz.resourcemanagement.model.ContainerType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -13,56 +13,56 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ProductTypeDaoImpl implements ProductTypeDao {
+public class ContainerTypeDaoImpl implements ContainerTypeDao {
 
     NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
-    public ProductTypeDaoImpl(NamedParameterJdbcTemplate jdbcTemplate) {
+    public ContainerTypeDaoImpl(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<ProductType> getAll() {
-        return jdbcTemplate.query("select * from product_type", new ProductTypeRowMapper());
+    public List<ContainerType> getAll() {
+        return jdbcTemplate.query("select * from container_type", new ContainerTypeRowMapper());
     }
 
     @Override
-    public ProductType findByName(String name) {
-        String sql = "SELECT * FROM product_type WHERE name = :name";
+    public ContainerType findByName(String name) {
+        String sql = "SELECT * FROM container_type WHERE name = :name";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("name", name);
         try {
-            return jdbcTemplate.queryForObject(sql, params, new ProductTypeRowMapper());
+            return jdbcTemplate.queryForObject(sql, params, new ContainerTypeRowMapper());
         } catch(IncorrectResultSizeDataAccessException e) {
             return null;
         }
     }
 
     @Override
-    public ProductType findById(long id) {
-        String sql = "SELECT * FROM product_type WHERE id = :id";
+    public ContainerType findById(long id) {
+        String sql = "SELECT * FROM container_type WHERE id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
         try {
-            return jdbcTemplate.queryForObject(sql, params, new ProductTypeRowMapper());
+            return jdbcTemplate.queryForObject(sql, params, new ContainerTypeRowMapper());
         } catch(IncorrectResultSizeDataAccessException e) {
             return null;
         }
     }
 
-    public ProductType insert(ProductType productType) {
-        String sql = "insert into product_type(name, description) values(:name, :description)";
+    public ContainerType insert(ContainerType containerType) {
+        String sql = "insert into container_type(name, description) values(:name, :description)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("name", productType.getName())
-                .addValue("description", productType.getDescription());
+                .addValue("name", containerType.getName())
+                .addValue("description", containerType.getDescription());
         int numRows =  jdbcTemplate.update(sql, params, keyHolder);
-        productType.setId(keyHolder.getKey().intValue());
-        return productType;
+        containerType.setId(keyHolder.getKey().intValue());
+        return containerType;
     }
 
     public void deleteById(long id) {
-        String sql = "DELETE FROM product_type WHERE id = :id";
+        String sql = "DELETE FROM container_type WHERE id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
         jdbcTemplate.update(sql, params);
