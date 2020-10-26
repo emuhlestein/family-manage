@@ -23,7 +23,7 @@ public class ProductTypeRepositoryTest {
 	private static final String TEST_PRODUCT_TYPE2 = "TEST_TYPE2";
 
 	@Autowired
-	ProductTypeDao repo;
+    ProductTypeRepository repo;
 
 	@BeforeEach
 	public void setup() {

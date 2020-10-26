@@ -24,6 +24,6 @@ CREATE TABLE IF NOT EXISTS product (
     weight_per_container FLOAT NOT NULL,
     product_type_id INTEGER NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (product_type_id) REFERENCES product_type(id)
+    FOREIGN KEY (product_type_id) REFERENCES product_type(id),
     FOREIGN KEY (container_type_id) REFERENCES container_type(id)
 );

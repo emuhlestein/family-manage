@@ -1,8 +1,18 @@
 package com.intelliviz.resourcemanagement.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "product_type")
 public class ProductType {
+    @Id
+    @GeneratedValue
     private long id;
+
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
+
+    @Column(name = "description")
     private String description;
 
     public ProductType() {

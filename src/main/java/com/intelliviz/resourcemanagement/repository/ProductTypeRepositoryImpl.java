@@ -2,6 +2,7 @@ package com.intelliviz.resourcemanagement.repository;
 
 import com.intelliviz.resourcemanagement.model.ProductType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -13,12 +14,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ProductTypeDaoImpl implements ProductTypeDao {
+@Qualifier("ProductTypeJdbcTemplateRepository")
+public class ProductTypeRepositoryImpl implements ProductTypeRepository {
 
     NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
-    public ProductTypeDaoImpl(NamedParameterJdbcTemplate jdbcTemplate) {
+    public ProductTypeRepositoryImpl(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

@@ -1,13 +1,11 @@
 package com.intelliviz.resourcemanagement.service;
 
 import com.intelliviz.resourcemanagement.model.ProductType;
-import com.intelliviz.resourcemanagement.repository.ProductTypeDaoImpl;
+import com.intelliviz.resourcemanagement.repository.ProductTypeRepositoryImpl;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +19,7 @@ import static org.mockito.Mockito.when;
 class ProductTypeServiceImplTest {
 
     @Mock
-    private ProductTypeDaoImpl productTypeDao;
+    private ProductTypeRepositoryImpl productTypeDao;
 
     @InjectMocks
     private ProductTypeServiceImpl service;

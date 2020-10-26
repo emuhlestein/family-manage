@@ -4,16 +4,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
-public class ProductTypeDaoImplTest {
+public class ProductTypeRepositoryImplTest {
 
 	private static final String TEST_FOOD_PRODUCT_TYPE1 = "TEST_TYPE1";
 	private static final String TEST_FOOD_PRODUCT1 = "TEST_FOOD_PRODUCT1";
 
 	@Autowired
-	ProductTypeDaoImpl repo;
+	ProductTypeRepositoryImpl repo;
 
 	@Autowired
 	ProductDao typeRepo;

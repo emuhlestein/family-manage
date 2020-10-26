@@ -5,7 +5,7 @@ import com.intelliviz.resourcemanagement.model.ProductType;
 
 import java.util.List;
 
-public interface ProductTypeDao {
+public interface ProductTypeRepository {
     List<ProductType> getAll();
     ProductType findByName(String name);
     ProductType findById(long id);
