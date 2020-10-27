@@ -36,8 +36,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        repo.deleteById(id);
+    public Long deleteById(Long id) {
+        return repo.deleteById(id);
     }
-
 }

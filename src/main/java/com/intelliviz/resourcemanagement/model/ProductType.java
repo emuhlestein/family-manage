@@ -1,6 +1,7 @@
 package com.intelliviz.resourcemanagement.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "product_type")
@@ -10,9 +11,11 @@ public class ProductType {
     private long id;
 
     @Column(name = "name", unique = true, nullable = false)
+    @Size(min=2, max=64)
     private String name;
 
     @Column(name = "description")
+    @Size(max=256)
     private String description;
 
     public ProductType() {

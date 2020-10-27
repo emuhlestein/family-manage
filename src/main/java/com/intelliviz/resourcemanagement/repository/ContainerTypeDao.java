@@ -9,5 +9,5 @@ public interface ContainerTypeDao {
     ContainerType findByName(String name);
     ContainerType findById(long id);
     ContainerType insert(ContainerType containerType);
-    void deleteById(long id);
+    Long deleteById(long id);
 }

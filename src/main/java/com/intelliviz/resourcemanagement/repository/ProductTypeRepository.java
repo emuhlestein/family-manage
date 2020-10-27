@@ -10,5 +10,5 @@ public interface ProductTypeRepository {
     ProductType findByName(String name);
     ProductType findById(long id);
     ProductType insert(ProductType productType);
-    void deleteById(long id);
+    Long deleteById(long id);
 }

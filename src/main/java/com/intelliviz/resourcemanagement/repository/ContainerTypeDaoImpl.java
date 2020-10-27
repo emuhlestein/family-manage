@@ -61,10 +61,11 @@ public class ContainerTypeDaoImpl implements ContainerTypeDao {
         return containerType;
     }
 
-    public void deleteById(long id) {
+    public Long deleteById(long id) {
         String sql = "DELETE FROM container_type WHERE id = :id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
         jdbcTemplate.update(sql, params);
+        return id;
     }
 }

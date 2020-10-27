@@ -57,8 +57,12 @@ public class ProductTypeJpaRepositoryImpl implements ProductTypeRepository {
     }
 
     @Override
-    public void deleteById(long id) {
+    public Long deleteById(long id) {
         ProductType productType = findById(id);
+        if(productType == null) {
+            return null;
+        }
         em.remove(productType);
+        return id;
     }
 }
