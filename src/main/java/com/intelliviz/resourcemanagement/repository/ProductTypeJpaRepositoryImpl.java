@@ -35,14 +35,14 @@ public class ProductTypeJpaRepositoryImpl implements ProductTypeRepository {
     @Override
     public List<ProductType> getAll() {
         LOGGER.info("Getting all productypes using JPA!!!!!");
-        return em.createQuery("SELECT pt FROM ProductType pt", ProductType.class).getResultList();
+        return em.createQuery("SELECT pt FROM ProductType pt order by pt.name", ProductType.class).getResultList();
     }
 
     @Override
     public ProductType findByName(String name) {
         TypedQuery<ProductType> query = em.createQuery("SELECT pt FROM ProductType pt WHERE pt.name = :name", ProductType.class);
         query.setParameter("name", name);
-        return query.getSingleResult();
+        return query.getResultList().stream().findFirst().orElse(null);
     }
 
     @Override
