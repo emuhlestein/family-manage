@@ -23,6 +23,18 @@ public class ExceptionHandling extends ResponseEntityExceptionHandler {
         return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
+    @ExceptionHandler(DuplicateNameException.class)
+    public ResponseEntity<ExceptionResponse> duplicateNameException(DuplicateNameException exception) {
+        LOGGER.info("In duplicateNameException");
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    @ExceptionHandler(ProductTypeNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> productTypeNotFoundException(ProductTypeNotFoundException exception) {
+        LOGGER.info("In duplicateNameException");
+        return createHttpResponse(HttpStatus.NOT_FOUND, exception.getMessage());
+    }
+
     private ResponseEntity<ExceptionResponse> createHttpResponse(HttpStatus httpStatus, String message) {
         // body (httpResponse) and status
         return new ResponseEntity<>(new ExceptionResponse(httpStatus.value(), httpStatus,
