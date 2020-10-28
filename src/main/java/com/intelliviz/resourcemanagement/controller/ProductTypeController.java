@@ -5,6 +5,9 @@ import com.intelliviz.resourcemanagement.exception.MissingNameException;
 import com.intelliviz.resourcemanagement.exception.ProductTypeNotFoundException;
 import com.intelliviz.resourcemanagement.model.ProductType;
 import com.intelliviz.resourcemanagement.service.ProductTypeService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +39,11 @@ public class ProductTypeController {
     }
 
     @PostMapping("")
+    @ApiOperation(value = "Create product type", notes = "Creating a new product type", response = ProductType.class)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = ProductType.class),
+            @ApiResponse(code = 400, message = "Bad request", response = MissingNameException.class)
+    })
     public ResponseEntity<ProductType> save(@Valid @RequestBody ProductType insertProductType) throws MissingNameException, DuplicateNameException {
         System.out.println("name: " + insertProductType.getName());
         if(insertProductType.getName() == null || insertProductType.getName().equals("")) {
@@ -63,6 +71,7 @@ public class ProductTypeController {
     }
 
     @DeleteMapping("{id}")
+    @ApiOperation(value = "Delete producttype", notes = "Delete an existing product type")
     public void deleteById(@PathVariable int id) throws ProductTypeNotFoundException {
         Long deletedId = service.deleteById((long)id);
         if(deletedId == null) {

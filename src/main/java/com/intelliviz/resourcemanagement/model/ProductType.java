@@ -1,5 +1,7 @@
 package com.intelliviz.resourcemanagement.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
@@ -12,10 +14,12 @@ public class ProductType {
 
     @Column(name = "name", unique = true, nullable = false)
     @Size(min=2, max=64)
+    @ApiModelProperty(notes="name should have at least 2 characters and no more than 64")
     private String name;
 
     @Column(name = "description")
     @Size(max=256)
+    @ApiModelProperty(notes="description can have at most 256 characters")
     private String description;
 
     public ProductType() {
